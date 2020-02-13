@@ -59,6 +59,28 @@ class Engine {
     // This method is not implemented correctly, which is why
     // the burger never dies. In your exercises you will fix this method.
     isPlayerDead = () => {
-        return false;
+        let dead = false
+        let enemyX = this.enemies.map((key) => key.x)
+        // console.log(enemyX);
+        if (enemyX.forEach((enemy, id) => {
+            
+            if (enemy === this.player.x && this.enemies[id].y >= GAME_HEIGHT - PLAYER_HEIGHT - 10){
+                // console.log(dead);
+                dead = true;
+                // console.log(dead);
+            }
+            // console.log(dead)
+            // console.log(num)
+        }))
+        console.log(dead)
+        return dead;
     }
+        
+        
+        
+        // console.log(enemyX.forEach((item, index, arr)=>{return arr[index] = item ===this.player.x}));
+        // map of enemy x. if one === player x. check enemies using index value to check if that 
+        // one's y is in player. this.enemies['mapIndex'].y >= this.player.y
+        // 
+    
 }
