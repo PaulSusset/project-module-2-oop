@@ -1,0 +1,76 @@
+@font-face {
+    font-family: leagueFont;
+    src: url(/Friz-Quadrata-Font/Regular.ttf);
+}
+
+body {
+    font-family: leagueFont;
+    font-size: 1rem;
+    /* margin-left: 26px; */
+}
+.characterSelect {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0px;
+    z-index: inherit;
+    margin-top: 8px;
+    justify-content: space-around;
+    align-items: center;
+}
+.row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: inherit;
+}
+.text {
+    color: white;
+    font-size: 1.2rem;
+    padding: 5px;
+}
+.pOption {
+    background: slategray;
+    border: goldenrod 4px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.scoreboard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: slategrey;
+    color: white;
+}
+.score {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.splash {
+    width: 118px;
+    height: 125px;
+}
+.characterSelect > p {
+    padding-top: 15px;
+    margin-bottom: 0;
+}
+.retry {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./images/retry.jpg");
+}
+.retryText {
+    background: slategray;
+    color: white;
+    padding: 25px 50px;
+    border: goldenrod 4px solid;
+}
+.display {
+    display: none;
+}

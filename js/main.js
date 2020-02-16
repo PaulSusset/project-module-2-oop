@@ -1,23 +1,52 @@
-// We create an instance of the Engine class. Looking at our index.html,
-// we see that it has a div with an id of \`"app"\`  
-const gameEngine = new Engine(document.getElementById("app"));
-// keydownHandler is a variable that refers to a function. The function has one parameter
-// (does the parameter name matter?) which is called event. As we will see below, this function
-// will be called every time the user presses a key. The argument of the function call will be an object.
-// The object will contain information about the key press, such as which key was pressed. 
-const keydownHandler = event => {
-    // event.code contains a string. The string represents which key was press. If the
-    // key is left, then we call the moveLeft method of gameEngine.player (where is this method defined?)
-    if (event.code === "ArrowLeft") {
-        gameEngine.player.moveLeft();
+function gameStart() {
+    const gameEngine = new Engine(document.getElementById("app"));
+
+    const keydownHandler = event => {
+        if (event.code === "ArrowLeft") {
+            gameEngine.player.moveLeft();
+        }
+        if (event.code === "ArrowRight") {
+            gameEngine.player.moveRight();
+        }
+    };
+    document.addEventListener("keydown", keydownHandler);
+    gameEngine.gameLoop();
+}
+addBackground(document.getElementById("app"));
+document.querySelector(".characterSelect").style.width = `${GAME_WIDTH}px`;
+document.querySelector(".characterSelect").style.height = `${GAME_HEIGHT -
+    8}px`;
+document.querySelector(".scoreboard").style.width = `${GAME_WIDTH}px`;
+characterSelectScreen();
+function setFighter(event) {
+    for (i = 0; i < 4; i++) {
+        document
+            .getElementById(`${i}`)
+            .removeEventListener("click", setFighter);
     }
-    // If \`event.code\` is the string that represents a right arrow keypress,
-    // then move our hamburger to the right
-    if (event.code === "ArrowRight") {
-        gameEngine.player.moveRight();
+    let x = event.currentTarget.id;
+    playerSelect = x;
+    let soundSelect = new Audio(`${audio[playerSelect].Select}`);
+    soundSelect.play();
+    let bgRemove = 100;
+    document.getElementById(bgRemove).remove();
+    bgRemove += 1;
+    addBackground(document.getElementById("app"));
+    document.querySelector(".characterSelect").style.display = "none";
+    setTimeout(gameStart, 500);
+    document.getElementById("attempts").innerText = round;
+}
+function characterSelectScreen() {
+    for (i = 0; i < 4; i++) {
+        document.getElementById(`${i}`).addEventListener("click", setFighter);
+        document.querySelector(".characterSelect").style.display = "flex";
     }
 }
-// We add an event listener to document. document the ancestor of all DOM nodes in the DOM.
-document.addEventListener("keydown", keydownHandler);
-// We call the gameLoop method to start the game
-gameEngine.gameLoop();
+function playTheme() {
+    let theme = new Audio("./audio/mainTheme.mp3");
+    theme.volume = 0.2;
+    theme.loop = true;
+    theme.play();
+    document.getElementById("app").removeEventListener("click", playTheme);
+}
+document.getElementById("app").addEventListener("click", playTheme);
