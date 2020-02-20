@@ -10,7 +10,7 @@ The project is divided in two parts. In a first part, you will fix and implement
 
 Because there is a fair bit of JavaScript in this app, we have split code into more manageable pieces. You wil find all of the code in the `js` folder.
 
-_Because we split the code into many files, we need to import each file, in the right order in the `index.html` file.
+\_Because we split the code into many files, we need to import each file, in the right order in the `index.html` file.
 
 ## The game
 
@@ -44,7 +44,7 @@ A good strategy would be to console.log both this.player and this.enemies. When 
 
 As a hint, note that the box of each enemy is defined by its `x` and `y` coordinates and the `ENEMY_WIDTH` and `ENEMY_HEIGHT` constants. There are similar variables for the player.
 
-### 2. Let's do some refactoring!
+<!-- ### 2. Let's do some refactoring!
 
 Look at the `Player` and `Enemy` classes and notice that their `render` methods are identical. This violates our sacred DRY principle. Let's fix it!
 
@@ -52,7 +52,7 @@ While there are many ways to fix it, here we will do it by creating a superclass
 
 Then, we'll make `Player` and `Enemy` extend the `Entity` class, and remove the `render` methods from both classes.
 
-Having done this manipulation will break our constructors. Make sure to fix it by calling the appropriate function from your constructors.
+Having done this manipulation will break our constructors. Make sure to fix it by calling the appropriate function from your constructors. -->
 
 ### 3. Flavor it!
 
@@ -62,24 +62,24 @@ Having done this manipulation will break our constructors. Make sure to fix it b
 
 Having completed the basic section of this project is already great! However, this should leave you plenty of time for the fun part: customizing and evolving the game. Since this is an open-ended activity, we will give you some suggestions. Feel free to use them or not.
 
-- Instead of completely stopping the game when it's over, allow the player to start a new game
-- Add a sound track and sound effects to the game
-- Add the possibility of having lives
-- Increase the difficulty level of the game as time passes by making the enemies go faster
-- Allow the enemies and player to have animated sprites instead of the current static ones. You could do this by defining a sprite as an array of images and setting a speed at which these images should switch. This could be implemented in the `render` method.
-- Allow the player to shoot bullets at the Nyan Cats
-- Add another type of entity called `Bonus` that will also fall from the sky and add points to the score
-- Make the game more hardcore by allowing the player to also move up/down and making Nyan Cats also shoot from the left of the screen
-- **Don't stop!** These suggestions are only here to get you started :)
+-   Instead of completely stopping the game when it's over, allow the player to start a new game
+-   Add a sound track and sound effects to the game
+-   Add the possibility of having lives
+-   Increase the difficulty level of the game as time passes by making the enemies go faster
+-   Allow the enemies and player to have animated sprites instead of the current static ones. You could do this by defining a sprite as an array of images and setting a speed at which these images should switch. This could be implemented in the `render` method.
+-   Allow the player to shoot bullets at the Nyan Cats
+-   Add another type of entity called `Bonus` that will also fall from the sky and add points to the score
+-   Make the game more hardcore by allowing the player to also move up/down and making Nyan Cats also shoot from the left of the screen
+-   **Don't stop!** These suggestions are only here to get you started :)
 
 ## Project Success guidelines
 
 In order for the project to be deemed _successful_ and for you to receive a passing grade
 
-- you need to complete steps 1 and 2 completely.
-- add at least 4 _improvements_ to the game.
+-   you need to complete steps 1 and 2 completely.
+-   add at least 4 _improvements_ to the game.
 
 ### Submission
 
-- Be sure to add a screenshot to the PR.
-- Provide a link to the game in your project portfolio on surge.sh (If you need help setting this up, see someone).
+-   Be sure to add a screenshot to the PR.
+-   Provide a link to the game in your project portfolio on surge.sh (If you need help setting this up, see someone).

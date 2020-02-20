@@ -14,11 +14,11 @@ class Player {
         // We create a DOM node. We will be updating the DOM node every time we move the player, so we store a reference to the
         // DOM node in a property.
         this.domElement = document.createElement("img");
-        this.domElement.src = 'images/player.png';
-        this.domElement.style.position = 'absolute';
+        this.domElement.src = `${PLAYER_OPTION[playerSelect].sprite}`;
+        this.domElement.style.position = "absolute";
         this.domElement.style.left = `${this.x}px`;
-        this.domElement.style.top =` ${y}px`;
-        this.domElement.style.zIndex = '10';
+        this.domElement.style.top = ` ${y}px`;
+        this.domElement.style.zIndex = "10";
         root.appendChild(this.domElement);
     }
     // This method will be called when the user presses the left key. See in Engine.js

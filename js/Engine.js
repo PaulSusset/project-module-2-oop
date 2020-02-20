@@ -1,64 +1,133 @@
-// The engine class will only be instantiated once. It contains all the logic
-// of the game relating to the interactions between the player and the
-// enemy and also relating to how our enemies are created and evolve over time
 class Engine {
-    // The constructor has one parameter. It will refer to the DOM node that we will be adding everything to.
-    // You need to provide the DOM node when you create an instance of the class
     constructor(theRoot) {
-        // We need the DOM element every time we create a new enemy so we
-        // store a reference to it in a property of the instance.
         this.root = theRoot;
-        // We create our hamburger.
-        // Please refer to Player.js for more information about what happens when you create a player
         this.player = new Player(this.root);
-        // Initially, we have no enemies in the game. The enemies property refers to an array
-        // that contains instances of the Enemy class
         this.enemies = [];
-        // We add the background image to the game
-        addBackground(this.root);
     }
 
-    // The gameLoop will run every few milliseconds. It does several things
-    //  - Updates the enemy positions
-    //  - Detects a collision between the player and any enemy
-    //  - Removes enemies that are too low from the enemies array
     gameLoop = () => {
-        // This code is to see how much time, in milliseconds, has elapsed since the last
-        // time this method was called.
-        // (new Date).getTime() evaluates to the number of milliseconds since January 1st, 1970 at midnight.
-        if (this.lastFrame === undefined) this.lastFrame = (new Date).getTime();
-        let timeDiff = (new Date).getTime() - this.lastFrame;
-        this.lastFrame = (new Date).getTime();
-        // We use the number of milliseconds since the last call to gameLoop to update the enemy positions.
-        // Furthermore, if any enemy is below the bottom of our game, its destroyed property will be set. (See Enemy.js)
+        if (this.lastFrame === undefined) this.lastFrame = new Date().getTime();
+        let timeDiff = new Date().getTime() - this.lastFrame;
+        this.lastFrame = new Date().getTime();
         this.enemies.forEach(enemy => {
             enemy.update(timeDiff);
         });
-        // We remove all the destroyed enemies from the array referred to by \`this.enemies\`.
-        // We use filter to accomplish this.
-        // Remember: this.enemies only contains instances of the Enemy class.
         this.enemies = this.enemies.filter(enemy => {
             return !enemy.destroyed;
         });
-        // We need to perform the addition of enemies until we have enough enemies.
         while (this.enemies.length < MAX_ENEMIES) {
-            // We find the next available spot and, using this spot, we create an enemy.
-            // We add this enemy to the enemies array 
             const spot = nextEnemySpot(this.enemies);
             this.enemies.push(new Enemy(this.root, spot));
         }
-        // We check if the player is dead. If he is, we alert the user
-        // and return from the method (Why is the return statement important?)
+        updateScore();
         if (this.isPlayerDead()) {
-            window.alert("Game over");
-            return;
+            this.enemies = [];
+            retry();
+        } else {
+            setTimeout(this.gameLoop, 20);
         }
-        // If the player is not dead, then we put a setTimeout to run the gameLoop in 20 milliseconds
-        setTimeout(this.gameLoop, 20);
-    }
-    // This method is not implemented correctly, which is why
-    // the burger never dies. In your exercises you will fix this method.
+    };
+
     isPlayerDead = () => {
-        return false;
+        let dead = false;
+        let enemyX = this.enemies.map(key => key.x);
+        enemyX.forEach((enemy, id) => {
+            if (
+                enemy === this.player.x &&
+                this.enemies[id].y >
+                    GAME_HEIGHT - PLAYER_HEIGHT - ENEMY_HEIGHT &&
+                this.enemies[id].y < GAME_HEIGHT - PLAYER_HEIGHT - 10
+            ) {
+                dead = true;
+            }
+        });
+        return dead;
+    };
+}
+let played10 = false;
+let played25 = false;
+let played40 = false;
+let played60 = false;
+let played80 = false;
+let played100 = false;
+function updateScore() {
+    document.getElementById("score").innerHTML = score;
+    if (score >= highscore) {
+        highscore = score;
+        document.getElementById("highscore").innerHTML = highscore;
     }
+    let x = audio[playerSelect];
+    switch (score) {
+        case 10:
+            if (!played10) {
+                new Audio(x.p10).play();
+            }
+            played10 = true;
+            break;
+        case 25:
+            if (!played25) {
+                new Audio(x.p25).play();
+            }
+            played25 = true;
+            break;
+        case 40:
+            if (!played40) {
+                new Audio(x.p40).play();
+            }
+            played40 = true;
+            break;
+        case 60:
+            if (!played60) {
+                new Audio(x.p60).play();
+            }
+            played60 = true;
+            break;
+        case 80:
+            if (!played80) {
+                new Audio(x.p80).play();
+            }
+            played80 = true;
+            break;
+        case 100:
+            if (!played100) {
+                new Audio(x.p100).play();
+            }
+            played100 = true;
+            break;
+    }
+}
+function retry() {
+    if (round < 2) {
+        const container = document.getElementById("retry");
+        const retry = document.createElement("div");
+        retry.innerText = "Try again?";
+        retry.id = "retryButton";
+        container.appendChild(retry);
+
+        retry.classList.add("retryText");
+        retry.classList.add("text");
+        container.style.width = `${GAME_WIDTH}`;
+        container.style.height = `${GAME_HEIGHT - 44}`;
+    }
+
+    round += 1;
+    document.getElementById("retryButton").addEventListener("click", reset);
+    document.getElementById("retry").classList.remove("display");
+    let bye = document.querySelectorAll("#app>img");
+    bye.forEach(img => img.remove());
+}
+function reset() {
+    document.querySelector(".characterSelect").style.display = "flex";
+    characterSelectScreen();
+    addBackground(document.getElementById("app"));
+    score = 0;
+    played10 = false;
+    played25 = false;
+    played40 = false;
+    played60 = false;
+    played80 = false;
+    played100 = false;
+    document.getElementById("retryButton").removeEventListener("click", reset);
+    document.getElementById("retry").classList.toggle("display");
+    document.createElement("div").addEventListener("click", reset);
 }
