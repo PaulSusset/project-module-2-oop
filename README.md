@@ -7,7 +7,7 @@ The game is a basic dodge incoming enemies type.
 <img src=https://i.imgur.com/0Hhrk5q.png width='400'/>
 <img src=https://i.imgur.com/PcbIX9b.png width='400'/>
 
-[You can play it here](closed-industry.surge.sh)
+[You can play it here](https://www.closed-industry.surge.sh)
 
 There is a soundtrack that unfortunately is too big for the surge host. Run the project for the full experience!
 
